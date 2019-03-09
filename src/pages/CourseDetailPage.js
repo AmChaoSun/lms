@@ -1,3 +1,5 @@
 import React from "react";
 
-export default <div>Course Detail</div>;
+export default () => {
+  return <div>Course Detail</div>;
+};

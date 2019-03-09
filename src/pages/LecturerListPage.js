@@ -1,6 +1,6 @@
 import React from "react";
 import LecturerDetailPage from "./LecturerDetailPage";
-import Route from "react-router-dom";
+import { Route } from "react-router-dom";
 
 const LecturerListPage = ({ location }) => {
   return (
