@@ -1,14 +1,15 @@
 import React from "react";
 import StudentDetailPage from "./StudentDetailPage";
+import StudentListPage from "./StudentListPage";
 import { Route } from "react-router-dom";
 
-const StudentListPage = ({ location }) => {
+const StudentRoutePage = ({ location }) => {
   return (
     <div>
-      {location.pathname === "/students" && <div>List of Students</div>}
+      {location.pathname === "/students" && <StudentListPage />}
       <Route path="/students/:id" component={StudentDetailPage} />
     </div>
   );
 };
 
-export default StudentListPage;
+export default StudentRoutePage;
