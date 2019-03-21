@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import LoginForm from "../components/LoginForm";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import LoginForm from "../components/LoginForm";
 
 class LoginPage extends Component {
   render() {
@@ -33,4 +34,10 @@ const FormWrapper = styled.div`
   /* flex-direction: column; */
 `;
 
-export default LoginPage;
+//useless, just a trigger for redirect
+function mapStateToProps(state) {
+  return {
+    status: state.login
+  };
+}
+export default connect(mapStateToProps)(LoginPage);
