@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import CircularProgress from "@material-ui/core/CircularProgress";
+// import CircularProgress from "@material-ui/core/CircularProgress";
 import List from "../../components/List";
 import { getStudents } from "../../actions";
 
@@ -17,11 +17,7 @@ class StudentListPage extends React.Component {
     return (
       <div>
         <div>List of students</div>
-        {this.state.isLoading ? (
-          <CircularProgress />
-        ) : (
-          <List records={this.props.records} />
-        )}
+        {this.state.isLoading ? <div /> : <List records={this.props.records} />}
       </div>
     );
   }

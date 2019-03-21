@@ -12,8 +12,9 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={HomePage} />
         <Route path="/login" component={LoginPage} />
+        <PrivateRoute exact path="/" component={HomePage} />
+        <PrivateRoute path="/home" component={HomePage} />
         <Route path="/students" component={StudentRoutePage} />
         <PrivateRoute path="/courses" component={CourseRoutePage} />
         <PrivateRoute path="/lecturers" component={LecturerListPage} />

@@ -1,35 +1,36 @@
 import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import LoginForm from "../components/LoginForm";
+import styled from "styled-components";
+import { Redirect } from "react-router-dom";
 
 class LoginPage extends Component {
-  state = { credential: "", identifier: "" };
-
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
-  };
-
-  handleSubmit = async () => {};
   render() {
-    return (
-      <div>
-        <TextField
-          id="identifier"
-          type="input"
-          placeholder="identifier"
-          onChange={this.handleChange("identifier")}
-        />
-        ;
-        <TextField
-          id="credential"
-          type="input"
-          placeholder="credential"
-          onChange={this.handleChange("credential")}
-        />
-        ;<Button>Sign in</Button>
-      </div>
+    return localStorage.getItem("jwt") ? (
+      <Redirect
+        to={{ pathname: "/home", state: { from: this.props.location } }}
+      />
+    ) : (
+      <FormWrapper>
+        <LoginForm />
+      </FormWrapper>
     );
   }
 }
+
+//css
+const FormWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  /* display: flex;
+  justify-content: center; */
+
+  /* flex-direction: column; */
+`;
 
 export default LoginPage;
