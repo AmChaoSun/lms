@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
 import LoginForm from "../components/LoginForm";
 
 class LoginPage extends Component {
@@ -28,16 +27,6 @@ const FormWrapper = styled.div`
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  /* display: flex;
-  justify-content: center; */
-
-  /* flex-direction: column; */
 `;
 
-//useless, just a trigger for redirect
-function mapStateToProps(state) {
-  return {
-    status: state.login
-  };
-}
-export default connect(mapStateToProps)(LoginPage);
+export default LoginPage;

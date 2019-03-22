@@ -13,12 +13,12 @@ const Router = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/login" component={LoginPage} />
-        <PrivateRoute exact path="/" component={HomePage} />
+        <Route exact path="/" component={LoginPage} />
         <PrivateRoute path="/home" component={HomePage} />
-        <Route path="/students" component={StudentRoutePage} />
+        <PrivateRoute path="/students" component={StudentRoutePage} />
         <PrivateRoute path="/courses" component={CourseRoutePage} />
         <PrivateRoute path="/lecturers" component={LecturerListPage} />
-        <Route component={PageNotFound} />
+        <PrivateRoute component={PageNotFound} />
       </Switch>
     </BrowserRouter>
   );
