@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
-import user from "./user";
-import students from "./student";
+import users from "./user";
 import courses from "./course";
 import login from "./login";
 
@@ -14,8 +13,6 @@ import login from "./login";
 
 export default combineReducers({
   login,
-  user,
-  students,
+  users,
   courses
-  // course
 });

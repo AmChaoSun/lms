@@ -27,7 +27,9 @@ class BasicLayout extends React.Component {
       <MyLayout>
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
           <Logo className="logo">Study Hub</Logo>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+          <Menu theme="dark" mode="inline">
+            {/* add following in Menu tag */}
+            {/* defaultSelectedKeys={["1"]} */}
             <Menu.Item key="1">
               <Link to="/home">
                 <Icon type="home" />
@@ -36,9 +38,9 @@ class BasicLayout extends React.Component {
             </Menu.Item>
 
             <Menu.Item key="2">
-              <Link to="/students">
+              <Link to="/users">
                 <Icon type="user" />
-                <span>Students</span>
+                <span>Users</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="3">

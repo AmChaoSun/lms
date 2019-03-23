@@ -15,7 +15,6 @@ export function login(values) {
           Password: values.password
         }
       );
-      console.log(token);
       localStorage.setItem("jwt", token);
       dispatch({
         type: "LOGIN_SUCCEED",

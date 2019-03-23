@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-// import CircularProgress from "@material-ui/core/CircularProgress";
-// import List from "../../components/List";
-import { getStudents } from "../../actions";
-import { Table, Divider } from "antd";
+import { getUsers } from "../../actions";
+import { Table, Divider, Icon } from "antd";
 
 const columns = [
   {
@@ -25,8 +23,8 @@ const columns = [
   },
   {
     title: "IsActive",
-    key: "isActive",
-    dataIndex: "isActive"
+    dataIndex: "isActive",
+    key: "isActive"
   },
   {
     title: "Action",
@@ -40,20 +38,16 @@ const columns = [
     )
   }
 ];
-class StudentListPage extends React.Component {
-  state = {
-    isLoading: false
-  };
-
+class UserListPage extends React.Component {
   componentDidMount() {
-    this.props.getStudents();
+    this.props.getUsers();
   }
 
   render() {
     return (
       <div>
-        {this.state.isLoading ? (
-          <div />
+        {this.props.isLoading ? (
+          <Icon type="loading" />
         ) : (
           <Table dataSource={this.props.records} columns={columns} />
         )}
@@ -64,12 +58,12 @@ class StudentListPage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    records: state.students.students
-    // isLoading: state.students.isLoading
+    records: state.users.records,
+    isLoading: state.users.isLoading
   };
 }
 
 export default connect(
   mapStateToProps,
-  { getStudents }
-)(StudentListPage);
+  { getUsers }
+)(UserListPage);
