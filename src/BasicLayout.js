@@ -49,7 +49,7 @@ class BasicLayout extends React.Component {
             </Menu.Item>
           </Menu>
         </Sider>
-        <Layout>
+        <MyLayout>
           <Header style={{ background: "#fff", padding: 0 }}>
             <TriggerIcon
               className="trigger"
@@ -66,7 +66,7 @@ class BasicLayout extends React.Component {
           >
             <Switch />
           </Content>
-        </Layout>
+        </MyLayout>
       </MyLayout>
     ) : (
       <Switch />
@@ -83,7 +83,7 @@ const TriggerIcon = styled(Icon)`
 `;
 
 const MyLayout = styled(Layout)`
-  height: 100%;
+  height: 100vh;
 `;
 
 const Logo = styled.div`

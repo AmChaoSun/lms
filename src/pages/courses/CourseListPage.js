@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getCourses } from "../../actions";
-
+// import MyList from "../HomePage";
 class CourseListPage extends React.Component {
   state = {
     isLoading: true
@@ -12,11 +12,8 @@ class CourseListPage extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <div>List of courses</div>
-      </div>
-    );
+    // return <MyList />;
+    return <div>list of courses</div>;
   }
 }
 

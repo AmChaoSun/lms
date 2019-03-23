@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export function login(values) {
   return async dispatch => {
     dispatch({
@@ -6,14 +8,22 @@ export function login(values) {
     });
     try {
       //some logic here
-      localStorage.setItem("jwt", "123");
+      const { data: token } = await axios.post(
+        "http://studyhubapi.charles.technology/api/admins/token",
+        {
+          UserName: values.userName,
+          Password: values.password
+        }
+      );
+      console.log(token);
+      localStorage.setItem("jwt", token);
       dispatch({
         type: "LOGIN_SUCCEED",
         data: { tryLogin: false }
       });
     } catch (err) {
       dispatch({
-        type: "LOGIN_FAILURE",
+        type: "LOGIN_FAIL",
         data: { tryLogin: false }
       });
     }
