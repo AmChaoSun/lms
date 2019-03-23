@@ -1,3 +1,22 @@
+import faker from "faker";
+
+const getRecords = () => {
+  const records = [];
+
+  for (let i = 0; i < 40; i++) {
+    const record = {
+      id: faker.random.number(),
+      nickName: faker.name.findName(),
+      role: faker.random.boolean(),
+      isActive: faker.random.boolean()
+    };
+    records.push(record);
+  }
+
+  return {
+    data: records
+  };
+};
 export function getStudents() {
   return async dispatch => {
     dispatch({
@@ -7,33 +26,11 @@ export function getStudents() {
     try {
       // const {data:studentsFromServer} = await axios.get('');
       // raw data
-      const studentsFromServer = [
-        {
-          id: "123",
-          _createdAt: "2019-02-02",
-          _updatedAt: "2019-03-03",
-          firstName: "san",
-          lastName: "zhang"
-        },
-        {
-          id: "123",
-          _createdAt: "2019-02-02",
-          _updatedAt: "2019-03-03",
-          firstName: "si",
-          lastName: "li"
-        },
-        {
-          id: "123",
-          _createdAt: "2019-02-02",
-          _updatedAt: "2019-03-03",
-          firstName: "ermazi",
-          lastName: "wang"
-        }
-      ];
+      const studentsFromServer = getRecords();
 
       dispatch({
         type: "GET_STUDENTS_SUCCEEDED",
-        data: studentsFromServer
+        data: studentsFromServer.data
       });
     } catch (err) {
       dispatch({

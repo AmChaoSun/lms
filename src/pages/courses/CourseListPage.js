@@ -17,12 +17,6 @@ class CourseListPage extends React.Component {
     return (
       <div>
         <div>List of courses</div>
-        {this.state.isLoading ? (
-          // <CircularProgress />
-          <div />
-        ) : (
-          <List records={this.props.records} />
-        )}
       </div>
     );
   }
@@ -30,7 +24,7 @@ class CourseListPage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    records: state.course.entities
+    records: state.course
     // isLoading: state.students.isLoading
   };
 }

@@ -17,6 +17,10 @@ class BasicLayout extends React.Component {
     });
   };
 
+  componentDidMount() {
+    this.setState({ mounted: true });
+  }
+
   render() {
     return localStorage.getItem("jwt") ? (
       <MyLayout>
@@ -56,7 +60,6 @@ class BasicLayout extends React.Component {
             style={{
               margin: "24px 16px",
               padding: 24,
-              background: "#fff",
               minHeight: 280
             }}
           >
@@ -90,10 +93,11 @@ const Logo = styled.div`
   color: white;
 `;
 
-//useless, just a trigger for redirect
+// useless, just a trigger for redirect
 function mapStateToProps(state) {
   return {
     status: state.login
   };
 }
 export default connect(mapStateToProps)(BasicLayout);
+// export default BasicLayout;
