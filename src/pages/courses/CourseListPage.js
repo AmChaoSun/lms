@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-// import CircularProgress from "@material-ui/core/CircularProgress";
-import List from "../../components/List";
 import { getCourses } from "../../actions";
 
 class CourseListPage extends React.Component {

@@ -2,7 +2,8 @@ import React from "react";
 import { Layout, Menu, Icon } from "antd";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import Router from "./routers/index";
+import Switch from "./routers/MySwitch";
+import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
@@ -28,23 +29,23 @@ class BasicLayout extends React.Component {
           <Logo className="logo">Study Hub</Logo>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
             <Menu.Item key="1">
-              <a href="/home">
+              <Link to="/home">
                 <Icon type="home" />
                 <span>Home</span>
-              </a>
+              </Link>
             </Menu.Item>
 
             <Menu.Item key="2">
-              <a href="/students">
+              <Link to="/students">
                 <Icon type="user" />
                 <span>Students</span>
-              </a>
+              </Link>
             </Menu.Item>
             <Menu.Item key="3">
-              <a href="/courses">
+              <Link to="/courses">
                 <Icon type="read" />
                 <span>Courses</span>
-              </a>
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -63,12 +64,12 @@ class BasicLayout extends React.Component {
               minHeight: 280
             }}
           >
-            <Router />
+            <Switch />
           </Content>
         </Layout>
       </MyLayout>
     ) : (
-      <Router />
+      <Switch />
     );
   }
 }
