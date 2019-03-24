@@ -1,23 +1,24 @@
-import faker from "faker";
+// import faker from "faker";
 import axios from "axios";
 
-const getRecords = () => {
-  const records = [];
+//fake reocrds
+// const getRecords = () => {
+//   const records = [];
 
-  for (let i = 0; i < 40; i++) {
-    const record = {
-      id: faker.random.number(),
-      nickName: faker.name.findName(),
-      role: faker.random.boolean(),
-      isActive: faker.random.boolean()
-    };
-    records.push(record);
-  }
+//   for (let i = 0; i < 40; i++) {
+//     const record = {
+//       id: faker.random.number(),
+//       nickName: faker.name.findName(),
+//       role: faker.random.boolean(),
+//       isActive: faker.random.boolean()
+//     };
+//     records.push(record);
+//   }
 
-  return {
-    data: records
-  };
-};
+//   return {
+//     data: records
+//   };
+// };
 export function getUsers() {
   return async dispatch => {
     dispatch({
@@ -36,6 +37,10 @@ export function getUsers() {
         data: users
       });
     } catch (err) {
+      if (err.request.status === 401) {
+        localStorage.removeItem("jwt");
+        window.location.reload();
+      }
       dispatch({
         type: "GET_USERS_FAILURE"
       });

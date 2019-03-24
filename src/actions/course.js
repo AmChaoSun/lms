@@ -1,39 +1,22 @@
+import axios from "axios";
+
 export function getCourses() {
   return async dispatch => {
     dispatch({ type: "GET_COURSES_START" });
-
     try {
-      // const {data:COURSESFromServer} = await axios.get('');
-      // raw data
-      const coursesFromServer = [
-        {
-          id: "123",
-          _createdAt: "2019-02-02",
-          _updatedAt: "2019-03-03",
-          firstName: "san",
-          lastName: "zhang"
-        },
-        {
-          id: "123",
-          _createdAt: "2019-02-02",
-          _updatedAt: "2019-03-03",
-          firstName: "si",
-          lastName: "li"
-        },
-        {
-          id: "123",
-          _createdAt: "2019-02-02",
-          _updatedAt: "2019-03-03",
-          firstName: "ermazi",
-          lastName: "wang"
-        }
-      ];
-
+      const { data: courses } = await axios.get(
+        "http://studyhubapi.charles.technology/api/admin/courses",
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
       dispatch({
         type: "GET_COURSES_SUCCEEDED",
-        data: coursesFromServer
+        data: courses
       });
     } catch (err) {
+      if (err.request.status === 401) {
+        localStorage.removeItem("jwt");
+        window.location.reload();
+      }
       dispatch({
         type: "GET_COURSES_FAILURE"
       });

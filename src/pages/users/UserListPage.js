@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getUsers } from "../../actions";
 import { Table, Divider, Icon } from "antd";
 
+//table columns
 const columns = [
   {
     title: "Id",
@@ -12,8 +13,8 @@ const columns = [
   {
     title: "NickName",
     dataIndex: "nickName",
-    key: "nickName",
-    render: text => <a href="javascript:;">{text}</a>
+    key: "nickName"
+    // render: text => <a href="javascript:;">{text}</a>
   },
 
   {
@@ -31,9 +32,9 @@ const columns = [
     key: "action",
     render: (text, record) => (
       <span>
-        <a href="javascript:;">Delete {record.name}</a>
+        {/* <a href="javascript:;">Delete {record.name}</a> */}
         <Divider type="vertical" />
-        <a href="javascript:;">Edit</a>
+        {/* <a href="javascript:;">Edit</a> */}
       </span>
     )
   }
