@@ -18,8 +18,10 @@ const users = (state = { records: [], isLoading: false }, action) => {
         let processedRecord = {};
         processedRecord["key"] = index;
         Object.entries(record).forEach(([key, value]) => {
-          if (necessaryKeys[key])
-            processedRecord[necessaryKeys[key]] = value.toString();
+          if (key === "isActive") {
+            value = value.toString();
+          }
+          if (necessaryKeys[key]) processedRecord[necessaryKeys[key]] = value;
         });
         return processedRecord;
       });

@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Table, Icon } from "antd";
 import { getUsers, deleteUser, updateUser, createUser } from "../../actions";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -17,8 +18,8 @@ class UserListPage extends React.Component {
     {
       title: "NickName",
       dataIndex: "nickName",
-      key: "nickName"
-      // render: text => <a href="javascript:;">{text}</a>
+      key: "nickName",
+      render: (text, record) => <Link to={`/users/${record.id}`}>{text}</Link>
     },
 
     {
