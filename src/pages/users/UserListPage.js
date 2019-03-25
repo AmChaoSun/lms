@@ -1,45 +1,62 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUsers } from "../../actions";
-import { Table, Divider, Icon } from "antd";
+import { getUsers, deleteUser, updateUser } from "../../actions";
+import { Table, Icon } from "antd";
+import ConfirmModal from "../../components/ConfirmModal";
+import EditModal from "../../components/EditUserModal";
 
-//table columns
-const columns = [
-  {
-    title: "Id",
-    dataIndex: "id",
-    key: "id"
-  },
-  {
-    title: "NickName",
-    dataIndex: "nickName",
-    key: "nickName"
-    // render: text => <a href="javascript:;">{text}</a>
-  },
-
-  {
-    title: "Role",
-    dataIndex: "role",
-    key: "role"
-  },
-  {
-    title: "IsActive",
-    dataIndex: "isActive",
-    key: "isActive"
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (text, record) => (
-      <span>
-        {/* <a href="javascript:;">Delete {record.name}</a> */}
-        <Divider type="vertical" />
-        {/* <a href="javascript:;">Edit</a> */}
-      </span>
-    )
-  }
-];
 class UserListPage extends React.Component {
+  //table column
+  columns = [
+    {
+      title: "Id",
+      dataIndex: "id",
+      key: "id"
+    },
+    {
+      title: "NickName",
+      dataIndex: "nickName",
+      key: "nickName"
+      // render: text => <a href="javascript:;">{text}</a>
+    },
+
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role"
+    },
+    {
+      title: "IsActive",
+      dataIndex: "isActive",
+      key: "isActive"
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <span>
+          <EditModal
+            title="Edit User"
+            okText="Update"
+            record={record}
+            onUpdate={this.props.updateUser}
+          />
+          <ConfirmModal
+            buttonType="danger"
+            buttonTag="Delete"
+            title="Delete User"
+            initialModalText={`Click OK to confirm delete user ${
+              record.nickName
+            }`}
+            loadingModalText={`Deleting ${record.nickName}`}
+            onConfirm={this.props.deleteUser}
+            userId={record.id}
+          />
+        </span>
+      )
+    }
+  ];
+
   componentDidMount() {
     this.props.getUsers();
   }
@@ -50,7 +67,7 @@ class UserListPage extends React.Component {
         {this.props.isLoading ? (
           <Icon type="loading" />
         ) : (
-          <Table dataSource={this.props.records} columns={columns} />
+          <Table dataSource={this.props.records} columns={this.columns} />
         )}
       </div>
     );
@@ -66,5 +83,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getUsers }
+  { getUsers, deleteUser, updateUser }
 )(UserListPage);

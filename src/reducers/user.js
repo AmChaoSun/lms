@@ -2,7 +2,9 @@ const necessaryKeys = {
   id: "id",
   nickName: "nickName",
   role: "role",
-  isActive: "isActive"
+  isActive: "isActive",
+  email: "email",
+  mobile: "mobile"
 };
 
 const users = (state = { records: [], isLoading: false }, action) => {
