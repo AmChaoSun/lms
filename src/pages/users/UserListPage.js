@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUsers, deleteUser, updateUser } from "../../actions";
 import { Table, Icon } from "antd";
+import { getUsers, deleteUser, updateUser, createUser } from "../../actions";
 import ConfirmModal from "../../components/ConfirmModal";
 import EditModal from "../../components/EditUserModal";
+import CreateUserModal from "../../components/CreateUserModal";
 
 class UserListPage extends React.Component {
   //table column
@@ -67,7 +68,10 @@ class UserListPage extends React.Component {
         {this.props.isLoading ? (
           <Icon type="loading" />
         ) : (
-          <Table dataSource={this.props.records} columns={this.columns} />
+          <div>
+            <CreateUserModal onCreate={this.props.createUser} />
+            <Table dataSource={this.props.records} columns={this.columns} />
+          </div>
         )}
       </div>
     );
@@ -83,5 +87,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getUsers, deleteUser, updateUser }
+  { getUsers, deleteUser, updateUser, createUser }
 )(UserListPage);

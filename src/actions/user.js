@@ -48,6 +48,20 @@ export function getUsers() {
   };
 }
 
+export function createUser(info) {
+  return async dispatch => {
+    dispatch({ type: "CREATE_USER_START" });
+    try {
+      //delete logic by id
+      console.log(`create user`);
+      console.log(info);
+      dispatch({ type: "CREATE_USER_SUCCEEDED" });
+    } catch (error) {
+      dispatch({ type: "CREATE_USER_FAIL" });
+    }
+  };
+}
+
 export function deleteUser(id) {
   return async dispatch => {
     dispatch({ type: "DELETE_USER_START" });
