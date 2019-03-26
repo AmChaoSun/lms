@@ -1,9 +1,7 @@
 import React from "react";
-import { Modal, Button } from "antd";
+import { Modal, Icon } from "antd";
 
 // props{
-//     buttonType: "primary",
-//     buttonTag: "",
 //     title: "",
 //     modalText: ""
 // }
@@ -32,7 +30,7 @@ class ConfirmModal extends React.Component {
           confirmLoading: false
         });
       }, 2000);
-      this.props.onConfirm(this.props.userId);
+      this.props.onConfirm(this.props.recordId);
     } catch (error) {}
   };
 
@@ -47,10 +45,11 @@ class ConfirmModal extends React.Component {
     const { visible, confirmLoading } = this.state;
     // console.log(this.props);
     return (
-      <div>
-        <Button type={this.props.buttonType} onClick={this.showModal}>
+      <span>
+        {/* <Button type={this.props.buttonType} onClick={this.showModal}>
           {this.props.buttonTag}
-        </Button>
+        </Button> */}
+        <Icon type="delete" onClick={this.showModal} />
         <Modal
           title={this.props.title}
           visible={visible}
@@ -60,7 +59,7 @@ class ConfirmModal extends React.Component {
         >
           <p>{this.state.ModalText}</p>
         </Modal>
-      </div>
+      </span>
     );
   }
 }

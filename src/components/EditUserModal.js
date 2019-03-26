@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Modal, Form, Input, Select, Radio } from "antd";
+import { Modal, Form, Input, Select, Radio, Icon } from "antd";
+
 const { Option } = Select;
 
 const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
@@ -113,8 +114,9 @@ class EditUserModal extends React.Component {
 
   render() {
     return (
-      <div>
-        <Button onClick={this.showModal}>Edit</Button>
+      <span>
+        {/* <Button onClick={this.showModal}>Edit</Button> */}
+        <Icon type="edit" onClick={this.showModal} />
         <CollectionCreateForm
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}
@@ -124,7 +126,7 @@ class EditUserModal extends React.Component {
           okText={this.props.okText}
           record={this.props.record}
         />
-      </div>
+      </span>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Table, Icon } from "antd";
+import { Table, Icon, Divider } from "antd";
 import { getUsers, deleteUser, updateUser, createUser } from "../../actions";
 import ConfirmModal from "../../components/ConfirmModal";
 import EditModal from "../../components/EditUserModal";
@@ -43,16 +43,15 @@ class UserListPage extends React.Component {
             record={record}
             onUpdate={this.props.updateUser}
           />
+          <Divider type="vertical" />
           <ConfirmModal
-            buttonType="danger"
-            buttonTag="Delete"
             title="Delete User"
             initialModalText={`Click OK to confirm delete user ${
               record.nickName
             }`}
             loadingModalText={`Deleting ${record.nickName}`}
             onConfirm={this.props.deleteUser}
-            userId={record.id}
+            recordId={record.id}
           />
         </span>
       )
@@ -60,6 +59,7 @@ class UserListPage extends React.Component {
   ];
 
   componentDidMount() {
+    console.log(123);
     this.props.getUsers();
   }
 
@@ -71,7 +71,10 @@ class UserListPage extends React.Component {
         ) : (
           <div>
             <CreateUserModal onCreate={this.props.createUser} />
-            <Table dataSource={this.props.records} columns={this.columns} />
+            <Table
+              dataSource={Array.from(this.props.records.values())}
+              columns={this.columns}
+            />
           </div>
         )}
       </div>

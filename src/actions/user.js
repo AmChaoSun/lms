@@ -48,6 +48,35 @@ export function getUsers() {
   };
 }
 
+export function getUserById(id) {
+  return async dispatch => {
+    dispatch({
+      type: "GET_USER_START"
+    });
+
+    try {
+      const { data: user } = await axios.get(
+        `http://studyhubapi.charles.technology/api/admin/users/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+      // raw data
+      // const users = getRecords();
+      dispatch({
+        type: "GET_USER_SUCCEEDED",
+        data: user
+      });
+    } catch (err) {
+      if (err.request.status === 401) {
+        localStorage.removeItem("jwt");
+        window.location.reload();
+      }
+      dispatch({
+        type: "GET_USER_FAILURE"
+      });
+    }
+  };
+}
+
 export function createUser(info) {
   return async dispatch => {
     dispatch({ type: "CREATE_USER_START" });
