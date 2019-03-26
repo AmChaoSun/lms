@@ -3,7 +3,7 @@ import { Layout, Menu, Icon } from "antd";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import Switch from "./routers/MySwitch";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
@@ -102,5 +102,5 @@ function mapStateToProps(state) {
     status: state.login
   };
 }
-export default connect(mapStateToProps)(BasicLayout);
+export default withRouter(connect(mapStateToProps)(BasicLayout));
 // export default BasicLayout;
