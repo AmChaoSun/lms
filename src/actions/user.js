@@ -55,16 +55,25 @@ export function getUserById(id) {
     });
 
     try {
-      const { data: user } = await axios.get(
-        `http://studyhubapi.charles.technology/api/admin/users/${id}`,
-        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
-      );
+      await axios
+        .get(`http://studyhubapi.charles.technology/api/admin/users/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.jwt}` }
+        })
+        .then(res => {
+          dispatch({
+            type: "GET_USER_SUCCEEDED",
+            data: res.data
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          if (err.request.status === 401) {
+            localStorage.removeItem("jwt");
+            window.location.reload();
+          }
+        });
       // raw data
       // const users = getRecords();
-      dispatch({
-        type: "GET_USER_SUCCEEDED",
-        data: user
-      });
     } catch (err) {
       if (err.request.status === 401) {
         localStorage.removeItem("jwt");

@@ -7,10 +7,10 @@ const necessaryKeys = {
   mobile: "mobile"
 };
 
-const users = (state = { isLoading: false }, action) => {
-  if (!state.records) {
-    state.records = new Map();
-  }
+const users = (
+  state = { records: new Map(), entity: {}, isLoading: false },
+  action
+) => {
   switch (action.type) {
     //get users
     case "GET_USERS_START":
@@ -48,7 +48,6 @@ const users = (state = { isLoading: false }, action) => {
       //data contains pagesize and else, here pick users out first
       //get the user
       let processedRecord = {};
-      processedRecord["key"] = data.id;
       Object.entries(data).forEach(([key, value]) => {
         if (key === "isActive") {
           value = value.toString();
@@ -56,11 +55,9 @@ const users = (state = { isLoading: false }, action) => {
         if (necessaryKeys[key]) processedRecord[necessaryKeys[key]] = value;
       });
 
-      //insert into records
-
-      state.records.set(data.id, processedRecord);
       return {
         ...state,
+        entity: processedRecord,
         isLoading: false
       };
     }

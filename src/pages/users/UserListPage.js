@@ -59,7 +59,6 @@ class UserListPage extends React.Component {
   ];
 
   componentDidMount() {
-    console.log(123);
     this.props.getUsers();
   }
 

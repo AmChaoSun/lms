@@ -7,18 +7,13 @@ import { Collapse } from "antd";
 import ConfirmModal from "../../components/ConfirmModal";
 import EditModal from "../../components/EditUserModal";
 import { deleteUser, updateUser, getUserById } from "../../actions";
+import UserProfile from "../../components/UserProfile";
 
 const Panel = Collapse.Panel;
 
 function callback(key) {
   console.log(key);
 }
-
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
 
 const IconSet = props => {
   return (
@@ -42,40 +37,41 @@ const IconSet = props => {
     </span>
   );
 };
+
 class UserDetailPage extends React.Component {
   state = { id: parseInt(pathParse(this.props.location.pathname).name) };
   componentDidMount() {
     this.props.getUserById(this.state.id);
   }
   render() {
-    return this.props.records.get(this.state.id) && !this.props.isLoading ? (
+    return this.props.isLoading ? (
+      <Icon type="loading" />
+    ) : (
       <Collapse defaultActiveKey={["1"]} onChange={callback}>
         <Panel
           header="Basic information"
           key="1"
           extra={
             <IconSet
-              record={this.props.records.get(this.state.id)}
+              record={this.props.entity}
               onUpdate={this.props.updateUser}
               onConfirm={this.props.deleteUser}
             />
           }
         >
-          <p>{text}</p>
+          <UserProfile entity={this.props.entity} />
         </Panel>
         <Panel header="Enrolled courses" key="2">
-          <p>{text}</p>
+          <div />
         </Panel>
       </Collapse>
-    ) : (
-      <Icon type="loading" />
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state.users.records);
   return {
+    entity: state.users.entity,
     records: state.users.records,
     isLoading: state.users.isLoading
   };
