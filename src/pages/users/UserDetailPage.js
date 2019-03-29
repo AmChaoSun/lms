@@ -49,6 +49,7 @@ const IconSet = props => {
 
 class UserDetailPage extends React.Component {
   state = { id: parseInt(pathParse(this.props.location.pathname).name) };
+
   columns = [
     {
       title: "Id",
@@ -115,10 +116,6 @@ class UserDetailPage extends React.Component {
               showCourses={this.props.getCourses}
               courses={this.props.courses}
               courseLoading={this.props.courseLoading}
-              onChange={e => {
-                console.log(123);
-                e.nativeEvent.stopImmediatePropagation();
-              }}
             />
           }
         >

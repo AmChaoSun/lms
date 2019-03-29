@@ -30,6 +30,7 @@ class ConfirmModal extends React.Component {
     });
 
     this.props.onConfirm(this.props.recordId);
+    window.location = "/users";
   };
 
   handleCancel = () => {

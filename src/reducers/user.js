@@ -122,7 +122,8 @@ const users = (
       cleanData.set(data.id, processedRecord);
       return {
         ...state,
-        records: cleanData
+        records: cleanData,
+        entity: processedRecord
       };
     }
     case "UPDATE_USER_FAILURE":

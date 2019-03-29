@@ -79,9 +79,14 @@ export function getUserById(id) {
       // const users = getRecords();
     } catch (err) {
       console.log(err);
+      //unauthorized
       if (err.request.status === 401) {
         localStorage.removeItem("jwt");
         window.location.reload();
+      }
+      //user not found
+      if (err.request.response === "User not Found") {
+        window.location = "/users";
       }
       dispatch({
         type: "GET_USER_FAILURE"
