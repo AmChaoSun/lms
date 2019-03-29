@@ -1,10 +1,10 @@
 const necessaryKeys = {
-  courseId: "id",
+  courseId: "courseId",
   name: "name",
   lecturer: "lecturer"
 };
 
-const courses = (state = { courses: [], isLoading: false }, action) => {
+const courses = (state = { records: [], isLoading: false }, action) => {
   switch (action.type) {
     case "GET_COURSES_START":
       return { ...state, isLoading: true };

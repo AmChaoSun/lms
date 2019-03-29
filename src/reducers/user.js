@@ -54,7 +54,14 @@ const users = (
         }
         if (necessaryKeys[key]) processedRecord[necessaryKeys[key]] = value;
       });
-
+      let courses = [];
+      data.courses.map(record => {
+        record.lecturer = record.lecturer.name;
+        record.key = record.courseId;
+        courses.push(record);
+        return null;
+      });
+      processedRecord["courses"] = courses;
       return {
         ...state,
         entity: processedRecord,
@@ -63,6 +70,82 @@ const users = (
     }
     case "GET_USER_FAILURE":
       return { ...state, isLoading: false };
+
+    //create users
+    case "CREATE_USER_START":
+      return { ...state };
+    case "CREATE_USER_SUCCEEDED": {
+      const { data } = action;
+      //copy users
+      let cleanData = new Map(state.records);
+
+      //data transform
+      let processedRecord = {};
+      processedRecord["key"] = data.id;
+      Object.entries(data).forEach(([key, value]) => {
+        if (key === "isActive") {
+          value = value.toString();
+        }
+        if (necessaryKeys[key]) processedRecord[necessaryKeys[key]] = value;
+      });
+
+      //insert
+      cleanData.set(data.id, processedRecord);
+
+      return {
+        ...state,
+        records: cleanData
+      };
+    }
+    case "CREATE_USER_FAILURE":
+      return { ...state };
+
+    //update users
+    case "UPDATE_USER_START":
+      return { ...state };
+    case "UPDATE_USER_SUCCEEDED": {
+      const { data } = action;
+      //copy users
+      let cleanData = new Map(state.records);
+
+      //data transform
+      let processedRecord = {};
+      processedRecord["key"] = data.id;
+      Object.entries(data).forEach(([key, value]) => {
+        if (key === "isActive") {
+          value = value.toString();
+        }
+        if (necessaryKeys[key]) processedRecord[necessaryKeys[key]] = value;
+      });
+
+      //insert
+      cleanData.set(data.id, processedRecord);
+      return {
+        ...state,
+        records: cleanData
+      };
+    }
+    case "UPDATE_USER_FAILURE":
+      return { ...state };
+
+    //delete users
+    case "DELETE_USER_START":
+      return { ...state };
+    case "DELETE_USER_SUCCEEDED": {
+      const { data } = action;
+      //copy users
+      let cleanData = new Map(state.records);
+
+      //remove record
+      cleanData.delete(data);
+
+      return {
+        ...state,
+        records: cleanData
+      };
+    }
+    case "DELETE_USER_FAILURE":
+      return { ...state };
 
     default:
       return state;

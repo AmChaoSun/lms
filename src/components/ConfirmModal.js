@@ -23,15 +23,13 @@ class ConfirmModal extends React.Component {
       ModalText: this.props.loadingModalText,
       confirmLoading: true
     });
-    try {
-      setTimeout(() => {
-        this.setState({
-          visible: false,
-          confirmLoading: false
-        });
-      }, 2000);
-      this.props.onConfirm(this.props.recordId);
-    } catch (error) {}
+
+    this.setState({
+      visible: false,
+      confirmLoading: false
+    });
+
+    this.props.onConfirm(this.props.recordId);
   };
 
   handleCancel = () => {

@@ -54,7 +54,8 @@ const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
                       if (
                         !(
                           value &&
-                          value === this.props.form.getFieldProps("credential")
+                          value ===
+                            this.props.form.getFieldProps("credential").value
                         )
                       ) {
                         callback("Please enter the same password as above");
@@ -119,7 +120,6 @@ class CreateUserModal extends React.Component {
         return;
       }
 
-      console.log("Received values of form: ", values);
       this.props.onCreate(values);
       form.resetFields();
       this.setState({ visible: false });

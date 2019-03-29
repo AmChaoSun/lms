@@ -7,8 +7,8 @@ import { Table, Divider, Icon } from "antd";
 const columns = [
   {
     title: "Id",
-    dataIndex: "id",
-    key: "id"
+    dataIndex: "courseId",
+    key: "courseId"
   },
   {
     title: "Name",

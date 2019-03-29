@@ -55,26 +55,30 @@ export function getUserById(id) {
     });
 
     try {
-      await axios
-        .get(`http://studyhubapi.charles.technology/api/admin/users/${id}`, {
+      //get user detail
+      const { data: user } = await axios.get(
+        `http://studyhubapi.charles.technology/api/admin/users/${id}`,
+        {
           headers: { Authorization: `Bearer ${localStorage.jwt}` }
-        })
-        .then(res => {
-          dispatch({
-            type: "GET_USER_SUCCEEDED",
-            data: res.data
-          });
-        })
-        .catch(err => {
-          console.log(err);
-          if (err.request.status === 401) {
-            localStorage.removeItem("jwt");
-            window.location.reload();
-          }
-        });
+        }
+      );
+
+      const { data: courses } = await axios.get(
+        `http://studyhubapi.charles.technology/api/admin/enrolls/students/${id}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.jwt}` }
+        }
+      );
+      user.courses = courses;
+      dispatch({
+        type: "GET_USER_SUCCEEDED",
+        data: user
+      });
+
       // raw data
       // const users = getRecords();
     } catch (err) {
+      console.log(err);
       if (err.request.status === 401) {
         localStorage.removeItem("jwt");
         window.location.reload();
@@ -91,10 +95,23 @@ export function createUser(info) {
     dispatch({ type: "CREATE_USER_START" });
     try {
       //delete logic by id
-      console.log(`create user`);
-      console.log(info);
-      dispatch({ type: "CREATE_USER_SUCCEEDED" });
+      const { data: user } = await axios.post(
+        "http://studyhubapi.charles.technology/api/admins/users",
+        info,
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+      dispatch({
+        type: "CREATE_USER_SUCCEEDED",
+        data: user
+      });
     } catch (error) {
+      if (error.request.status === 400) {
+        alert(error.request.response);
+      }
+      if (error.request.status === 401) {
+        localStorage.removeItem("jwt");
+        window.location.reload();
+      }
       dispatch({ type: "CREATE_USER_FAIL" });
     }
   };
@@ -105,9 +122,23 @@ export function deleteUser(id) {
     dispatch({ type: "DELETE_USER_START" });
     try {
       //delete logic by id
-      console.log(`delete user ${id}`);
-      dispatch({ type: "DELETE_USER_SUCCEEDED" });
+      await axios.delete(
+        `http://studyhubapi.charles.technology/api/admin/users/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+
+      dispatch({
+        type: "DELETE_USER_SUCCEEDED",
+        data: id
+      });
     } catch (error) {
+      if (error.request.status === 400) {
+        alert(error.request.response);
+      }
+      if (error.request.status === 401) {
+        localStorage.removeItem("jwt");
+        window.location.reload();
+      }
       dispatch({ type: "DELETE_USER_FAIL" });
     }
   };
@@ -119,10 +150,52 @@ export function updateUser(info) {
 
     try {
       //update logic by id
-      console.log(info);
-      dispatch({ type: "UPDATE_USER_SUCCEEDED" });
+      const { data: user } = await axios.put(
+        `http://studyhubapi.charles.technology/api/admin/users/${info.id}`,
+        info,
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+      dispatch({
+        type: "UPDATE_USER_SUCCEEDED",
+        data: user
+      });
     } catch (error) {
+      if (error.request.status === 400) {
+        alert(error.request.response);
+      }
+      if (error.request.status === 401) {
+        localStorage.removeItem("jwt");
+        window.location.reload();
+      }
       dispatch({ type: "UPDATE_USER_FAIL" });
+    }
+  };
+}
+
+export function dropCourse(id) {
+  return async dispatch => {
+    dispatch({ type: "DROP_COURSE_START" });
+    try {
+      //delete logic by id
+      console.log(`drop course`);
+      console.log(id);
+      dispatch({ type: "DROP_COURSE_SUCCEEDED" });
+    } catch (error) {
+      dispatch({ type: "DROP_COURSE_FAIL" });
+    }
+  };
+}
+
+export function enrollCourse(id) {
+  return async dispatch => {
+    dispatch({ type: "Enroll_COURSE_START" });
+    try {
+      //delete logic by id
+      console.log(`enroll course`);
+      console.log(id);
+      dispatch({ type: "Enroll_COURSE_SUCCEEDED" });
+    } catch (error) {
+      dispatch({ type: "Enroll_COURSE_FAIL" });
     }
   };
 }
