@@ -19,7 +19,7 @@ import axios from "axios";
 
 //   return records;
 // };
-export function getUsers() {
+export function getUsers(params) {
   return async dispatch => {
     dispatch({
       type: "GET_USERS_START"
@@ -28,7 +28,10 @@ export function getUsers() {
     try {
       const { data: users } = await axios.get(
         "http://studyhubapi.charles.technology/api/admin/users",
-        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+        {
+          params: { ...params },
+          headers: { Authorization: `Bearer ${localStorage.jwt}` }
+        }
       );
       // raw data
       // const users = getRecords();
