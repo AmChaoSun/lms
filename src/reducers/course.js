@@ -1,7 +1,8 @@
 const necessaryKeys = {
   courseId: "courseId",
   name: "name",
-  lecturer: "lecturer"
+  lecturer: "lecturer",
+  description: "description"
 };
 
 const lecturerKeys = {
@@ -19,9 +20,9 @@ const courses = (
       return { ...state, isLoading: true };
     case "GET_COURSES_SUCCEEDED": {
       const { data } = action;
-      const cleanData = data.map((record, index) => {
+      const cleanData = data.map(record => {
         let processedRecord = {};
-        processedRecord["key"] = index;
+        processedRecord["key"] = record.courseId;
         Object.entries(record).forEach(([key, value]) => {
           if (key === "lecturer") {
             processedRecord[necessaryKeys[key]] = value.name;
@@ -42,12 +43,12 @@ const courses = (
 
     //get lectures
     case "GET_LECTURERS_START":
-      return { ...state };
+      return state;
     case "GET_LECTURERS_SUCCEEDED": {
       const { data } = action;
       const cleanData = data.users.map(record => {
         let processedRecord = {};
-        processedRecord["key"] = record.id;
+        processedRecord["key"] = record.courseId;
         Object.entries(record).forEach(([key, value]) => {
           if (lecturerKeys[key]) {
             processedRecord[lecturerKeys[key]] = value;
@@ -61,11 +62,11 @@ const courses = (
       };
     }
     case "GET_LECTURERS_FAILURE":
-      return { ...state };
+      return state;
 
     //create users
     case "CREATE_COURSE_START":
-      return { ...state };
+      return state;
     case "CREATE_COURSE_SUCCEEDED": {
       const { data } = action;
       //copy courses
@@ -91,7 +92,48 @@ const courses = (
       };
     }
     case "CREATE_COURSE_FAILURE":
-      return { ...state };
+      return state;
+
+    //update users
+    case "UPDATE_COURSE_START":
+      return state;
+    case "UPDATE_COURSE_SUCCEEDED": {
+      const { data } = action;
+      //copy users
+      let cleanData = [...state.records];
+
+      //data transform
+      let processedRecord = {};
+      processedRecord["key"] = data.courseId;
+      Object.entries(data).forEach(([key, value]) => {
+        if (key === "lecturer") {
+          processedRecord[necessaryKeys[key]] = value.name;
+        } else if (necessaryKeys[key]) {
+          processedRecord[necessaryKeys[key]] = value;
+        }
+      });
+
+      //insert
+      let index = cleanData.findIndex(
+        ({ courseId }) => courseId === processedRecord.courseId
+      );
+      console.log(index);
+      if (index === -1) {
+        cleanData.push(processedRecord);
+      } else {
+        cleanData[index] = processedRecord;
+      }
+
+      console.log(cleanData);
+      return {
+        ...state,
+        records: cleanData,
+        entity: processedRecord
+      };
+    }
+    case "UPDATE_COURSE_FAILURE":
+      return state;
+
     default:
       return state;
   }

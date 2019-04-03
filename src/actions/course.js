@@ -83,3 +83,33 @@ export function createCourse(info) {
     }
   };
 }
+
+export function updateCourse(info) {
+  return async dispatch => {
+    dispatch({ type: "UPDATE_COURSE_START" });
+
+    try {
+      //update logic by id
+      const { data: course } = await axios.put(
+        `http://studyhubapi.charles.technology/api/admin/courses/${
+          info.courseId
+        }`,
+        info,
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+      dispatch({
+        type: "UPDATE_COURSE_SUCCEEDED",
+        data: course
+      });
+    } catch (error) {
+      if (error.request.status === 400) {
+        alert(error.request.response);
+      }
+      if (error.request.status === 401) {
+        localStorage.removeItem("jwt");
+        window.location.reload();
+      }
+      dispatch({ type: "UPDATE_COURSE_FAIL" });
+    }
+  };
+}
