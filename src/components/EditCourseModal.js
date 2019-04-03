@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Form, Input, Select, Radio, Icon } from "antd";
+import { Modal, Form, Input, Select, Icon } from "antd";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -13,7 +13,7 @@ const CollectionCreateForm = Form.create({ name: "edit course modal" })(
       let initPublisherId = null;
       if (this.props.lecturers) {
         let lecturer = this.props.lecturers.find(lecturer => {
-          return lecturer.nickName == record.lecturer;
+          return lecturer.nickName === record.lecturer;
         });
         if (lecturer) {
           initPublisherId = lecturer.id;

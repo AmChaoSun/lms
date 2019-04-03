@@ -52,6 +52,7 @@ class UserListPage extends React.Component {
             loadingModalText={`Deleting ${record.nickName}`}
             onConfirm={this.props.deleteUser}
             recordId={record.id}
+            redirectPath="/users"
           />
         </span>
       )

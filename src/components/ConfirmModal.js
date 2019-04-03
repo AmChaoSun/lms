@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Icon } from "antd";
-
+import pathParse from "path-parse";
 // props{
 //     title: "",
 //     modalText: ""
@@ -30,7 +30,9 @@ class ConfirmModal extends React.Component {
     });
 
     this.props.onConfirm(this.props.recordId);
-    window.location = "/users";
+    if (pathParse(window.location.pathname).dir !== "/") {
+      window.location = this.props.redirectPath;
+    }
   };
 
   handleCancel = () => {

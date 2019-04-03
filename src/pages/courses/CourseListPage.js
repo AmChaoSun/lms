@@ -4,11 +4,13 @@ import {
   getLectures,
   getCourses,
   createCourse,
-  updateCourse
+  updateCourse,
+  deleteCourse
 } from "../../actions";
-import { Table, Divider, Icon, Modal } from "antd";
+import { Table, Divider, Icon } from "antd";
 import CreateCourseModal from "../../components/CreateCourseModal";
 import EditCourseModal from "../../components/EditCourseModal";
+import ConfirmModal from "../../components/ConfirmModal";
 
 //table columns
 
@@ -41,16 +43,17 @@ class CourseListPage extends React.Component {
             onUpdate={this.props.updateCourse}
             lecturers={this.props.lecturers}
           />
-          {/* <Divider type="vertical" />
+          <Divider type="vertical" />
           <ConfirmModal
-            title="Delete User"
-            initialModalText={`Click OK to confirm delete user ${
-              record.nickName
+            title="Delete Course"
+            initialModalText={`Click OK to confirm delete course: ${
+              record.name
             }`}
-            loadingModalText={`Deleting ${record.nickName}`}
-            onConfirm={this.props.deleteUser}
-            recordId={record.id}
-          /> */}
+            loadingModalText={`Deleting ${record.name}`}
+            onConfirm={this.props.deleteCourse}
+            recordId={record.courseId}
+            redirectPath="/courses"
+          />
         </span>
       )
     }
@@ -85,5 +88,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getLectures, getCourses, createCourse, updateCourse }
+  { getLectures, getCourses, createCourse, updateCourse, deleteCourse }
 )(CourseListPage);

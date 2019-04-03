@@ -113,3 +113,30 @@ export function updateCourse(info) {
     }
   };
 }
+
+export function deleteCourse(courseId) {
+  return async dispatch => {
+    dispatch({ type: "DELETE_COURSE_START" });
+    try {
+      //delete logic by id
+      await axios.delete(
+        `http://studyhubapi.charles.technology/api/admin/courses/${courseId}`,
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+
+      dispatch({
+        type: "DELETE_COURSE_SUCCEEDED",
+        data: courseId
+      });
+    } catch (error) {
+      if (error.request.status === 400) {
+        alert(error.request.response);
+      }
+      if (error.request.status === 401) {
+        localStorage.removeItem("jwt");
+        window.location.reload();
+      }
+      dispatch({ type: "DELETE_COURSE_FAIL" });
+    }
+  };
+}

@@ -42,6 +42,7 @@ const IconSet = props => {
         loadingModalText={`Deleting ${props.record.nickName}`}
         onConfirm={props.onConfirm}
         recordId={props.record.id}
+        redirectPath="/users"
       />
     </span>
   );

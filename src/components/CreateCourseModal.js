@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Modal, Form, Input, Select, Radio, Icon } from "antd";
+import { Button, Modal, Form, Input, Select, Icon } from "antd";
 const { Option } = Select;
 const { TextArea } = Input;
 

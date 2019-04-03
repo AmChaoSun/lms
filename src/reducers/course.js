@@ -117,14 +117,13 @@ const courses = (
       let index = cleanData.findIndex(
         ({ courseId }) => courseId === processedRecord.courseId
       );
-      console.log(index);
+
       if (index === -1) {
         cleanData.push(processedRecord);
       } else {
         cleanData[index] = processedRecord;
       }
 
-      console.log(cleanData);
       return {
         ...state,
         records: cleanData,
@@ -133,6 +132,30 @@ const courses = (
     }
     case "UPDATE_COURSE_FAILURE":
       return state;
+
+    //delete users
+    case "DELETE_COURSE_START":
+      return { ...state };
+    case "DELETE_COURSE_SUCCEEDED": {
+      const { data } = action;
+      //copy users
+      let cleanData = [...state.records];
+      console.log(data);
+      //find index
+      let index = cleanData.findIndex(({ courseId }) => courseId === data);
+
+      //remove record
+      if (index !== -1) {
+        cleanData.splice(index, 1);
+      }
+
+      return {
+        ...state,
+        records: cleanData
+      };
+    }
+    case "DELETE_COURSE_FAILURE":
+      return { ...state };
 
     default:
       return state;
