@@ -62,6 +62,36 @@ const courses = (
     }
     case "GET_LECTURERS_FAILURE":
       return { ...state };
+
+    //create users
+    case "CREATE_COURSE_START":
+      return { ...state };
+    case "CREATE_COURSE_SUCCEEDED": {
+      const { data } = action;
+      //copy courses
+      let cleanData = [...state.records];
+
+      //data transform
+      let processedRecord = {};
+      processedRecord["key"] = data.courseId;
+      Object.entries(data).forEach(([key, value]) => {
+        if (key === "lecturer") {
+          processedRecord[necessaryKeys[key]] = value.name;
+        } else if (necessaryKeys[key]) {
+          processedRecord[necessaryKeys[key]] = value;
+        }
+      });
+
+      //insert
+      cleanData.push(processedRecord);
+
+      return {
+        ...state,
+        records: cleanData
+      };
+    }
+    case "CREATE_COURSE_FAILURE":
+      return { ...state };
     default:
       return state;
   }

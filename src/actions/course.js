@@ -62,14 +62,14 @@ export function createCourse(info) {
     try {
       //delete logic by id
       console.log(info);
-      const { data: user } = await axios.post(
-        "http://studyhubapi.charles.technology/api/admins/courses",
+      const { data } = await axios.post(
+        "http://studyhubapi.charles.technology/api/admin/courses",
         info,
         { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
       );
       dispatch({
         type: "CREATE_COURSE_SUCCEEDED",
-        data: user
+        data: data
       });
     } catch (error) {
       if (error.request.status === 400) {

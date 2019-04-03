@@ -30,9 +30,9 @@ const CollectionCreateForm = Form.create({ name: "form_in_modal" })(
               })(<Input />)}
             </Form.Item>
 
-            <Form.Item label="Role">
-              {getFieldDecorator("role", {
-                rules: [{ required: true, message: "Please select user role!" }]
+            <Form.Item label="Publisher">
+              {getFieldDecorator("publisherId", {
+                rules: [{ required: true, message: "Please select publisher!" }]
               })(
                 <Select>
                   {this.props.lecturers.map(record => (
